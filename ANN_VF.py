@@ -93,7 +93,6 @@ def predict_and_plot(dp_values_m, labels):
         ax[0].plot(mass_flow_range, y_plot[:, 0], '-o', label=label)
         ax[1].plot(mass_flow_range, y_plot[:, 1], '-o', label=label)
 
-        # Store data
         df_res = pd.DataFrame({
             "Mass_Flow_kg_per_s": mass_flow_range,
             "Particle_Diameter_m": dp_val,
@@ -124,19 +123,23 @@ else:
     print("Invalid choice. Exiting...")
 
 # Graph formatting
-ax[0].set_title('Pressure Drop vs Mass Flow Rate')
-ax[0].set_xlabel('Mass Flow Rate (kg/s)')
-ax[0].set_ylabel('Pressure Drop (Pa)')
-ax[0].grid(True)
-ax[0].legend(title='Particle Diameter')
+for axis in ax:
+    axis.tick_params(axis='both', labelsize=15)  # Ticks formatting
 
-ax[1].set_title('Bed Expansion vs Mass Flow Rate')
-ax[1].set_xlabel('Mass Flow Rate (kg/s)')
-ax[1].set_ylabel('Bed Expansion Height (m)')
+ax[0].set_title('Pressure Drop vs Mass Flow Rate', fontsize=16)
+ax[0].set_xlabel('Mass Flow Rate (kg/s)', fontsize=15)
+ax[0].set_ylabel('Pressure Drop (Pa)', fontsize=15)
+ax[0].grid(True)
+ax[0].legend(title='Particle Diameter', fontsize=12, title_fontsize=13)
+
+ax[1].set_title('Bed Expansion vs Mass Flow Rate', fontsize=16)
+ax[1].set_xlabel('Mass Flow Rate (kg/s)', fontsize=15)
+ax[1].set_ylabel('Bed Expansion Height (m)', fontsize=15)
 ax[1].grid(True)
-ax[1].legend(title='Particle Diameter')
+ax[1].legend(title='Particle Diameter', fontsize=12, title_fontsize=13)
 
 plt.tight_layout()
+
 
 ### Ask to save data
 folder_name = None
@@ -156,11 +159,13 @@ plt.show()
 fig_lc, ax_lc = plt.subplots()
 ax_lc.plot(np.log(history.history['loss']), label='Training loss')
 ax_lc.plot(np.log(history.history['val_loss']), label='Validation loss')
-ax_lc.set_xlabel('Epoch')
-ax_lc.set_ylabel('log(MSE)')
-ax_lc.legend()
-ax_lc.set_title("Learning Curve")
+
+ax_lc.set_xlabel('Epoch', fontsize=15)
+ax_lc.set_ylabel('log(MSE)', fontsize=15)
+ax_lc.set_title("Learning Curve", fontsize=16)
+ax_lc.legend(fontsize=12)
 ax_lc.grid(True)
+ax_lc.tick_params(axis='both', labelsize=15)
 
 # Saving learning curve PNG et CSV
 if folder_name:
